@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "NewsArticleTiles";
+    var rendering = Sitecore.Mvc.Presentation.RenderingContext.CurrentOrNull.Rendering.Parameters["News Type"];
+}
+
+<h2>NewsArticleTiles</h2>
+
+<div id="ArticleDetail" style="white-space: pre;">
+
+
+</div>
+<script type="text/javascript">
+        $(document).ready(function () {
+                    $.ajax({
+                        url: "api/News/SearchNews/@rendering",
+                        type: "GET",
+                        data: { format: 'json' },
+                        context: this,
+                        success: function (data) {
+                            var ResultString = JSON.parse(data)["Results"]; 
+							var Result = "";
+							$("#ArticleDetail").append('<ul id="articleList" />');
+                            $.each(ResultString, function() {
+								$("#articleList").append($("<li>").text(this["Title"]));
+								this["Image"].length > 0 ? $("#articleList").append($("<li>").html("<img src=\""+ this["Image"] + "\" />")) : "";
+								this["ArticleDate"].length > 0 ? $("#articleList").append($("<li>").text(this["ArticleDate"])) : "";
+								this["Url"].length > 0 ? $("#articleList").append($("<li>").html($("<a>").attr({ "href" : this["Url"], title: "Show more details" }).html("Go to the news"))) : "";
+								$("#articleList").append("<br />")
+							});
+                        },
+                        error: function (data) {
+                            console.log("error", data);
+                        }
+                    });
+
+
+        });
+</script>

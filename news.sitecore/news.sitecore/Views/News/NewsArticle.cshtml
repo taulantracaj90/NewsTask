@@ -1,0 +1,39 @@
+﻿@using news.sitecore.Domain.Sitecore
+@model news.sitecore.Application.ViewModels.NewsContentTemplateViewModel
+    @{
+        var newsType = Model.newsTypeValue.TargetItem != null ? @Model.newsTypeValue.TargetItem.Name : string.Empty;
+    }
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <h2>@Html.Sitecore().Field(Templates.StandardContent.Fields.Title.ToString(), Model.Item)</h2>
+            <p>
+                @Html.Sitecore().Field(Templates.StandardContent.Fields.Image.ToString(), Model.Item)
+            </p>
+            @Html.Sitecore().Field(Templates.NewsContent.Fields.ArticleDate.ToString(), Model.Item)
+        </div>
+        <div class="col-md-4">
+            @*@Html.Sitecore().Field(Templates.NewsContent.Fields.NewsType.ToString(), Model.Item)*@
+
+            @*@if (Model.Item.FieldHasValue(Templates.NewsContent.Fields.NewsType))
+            {
+                var newsType = Model.Item.Fields[Templates.NewsContent.Fields.NewsType].Key;
+                
+                    <li class="tag right">@newsType </li>                @Html.Sitecore().Field(Templates.NewsType.Fields.Keyword.ToString(), newsType.)
+            }*@
+        <div class="col-md-4">
+            @newsType
+        </div>
+        </div>
+        <div class="col-md-4">
+            @Html.Sitecore().Field(Templates.NewsContent.Fields.Abstract.ToString(), Model.Item)
+        </div>
+        <div class="col-md-4">
+            @Html.Sitecore().Field(Templates.NewsContent.Fields.Content.ToString(), Model.Item)
+        </div>
+        <div class="col-md-4">
+            @Html.Sitecore().Field(Templates.NewsContent.Fields.Content.ToString(), Model.Item)
+        </div>
+    </div>
+}
